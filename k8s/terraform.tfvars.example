@@ -1,0 +1,7 @@
+mysql_password = # MySQL Password
+mysql_db       = # MySQL Database
+java_opts      = # "-Xms64m -Xmx128m -XX:+UseG1GC -Djava.security.egd=file:/dev/urandom -Dspring.zipkin.enabled=false"
+user_db        = # user DB url
+zipkin         = # "zipkin.jaeger.svc.cluster.local"
+domain_name    = # host name for ingress
+session_redis  = # "true" | "false"
