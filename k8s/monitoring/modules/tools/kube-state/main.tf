@@ -4,8 +4,9 @@ module "kube_state_config" {
 }
 
 module "deployment" {
-  source    = "./deployment"
-  namespace = var.namespace
+  source                          = "./deployment"
+  namespace                       = var.namespace
+  kube_state_service_account_name = module.kube_state_config.kube_state_service_account_name
 }
 
 module "service" {

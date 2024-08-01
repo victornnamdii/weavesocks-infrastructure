@@ -2,7 +2,6 @@ resource "kubernetes_service" "kube_state_service" {
   metadata {
     name      = "kube-state-metrics"
     namespace = var.namespace
-
     labels = var.kube_state_dep_labels
   }
 

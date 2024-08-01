@@ -1,4 +1,4 @@
-resource "kubernetes_service_account_v1" "kube_state_sa" {
+resource "kubernetes_service_account" "kube_state_sa" {
   metadata {
     name      = "kube-state-metrics"
     namespace = var.namespace

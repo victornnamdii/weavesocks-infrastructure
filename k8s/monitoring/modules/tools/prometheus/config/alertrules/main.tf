@@ -5,6 +5,6 @@ resource "kubernetes_config_map" "prometheus_alertrules_cm" {
   }
 
   data = {
-    "alert.rules" = "${file("${path.module}/config/alert.rules.yml")}"
+    "alert.rules" = "${file("${path.module}/data/alert.rules.yml")}"
   }
 }

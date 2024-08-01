@@ -71,7 +71,7 @@ resource "kubernetes_deployment" "kube_state" {
           "beta.kubernetes.io/os" = "linux"
         }
 
-        service_account_name = "kube-state-metrics"
+        service_account_name = var.kube_state_service_account_name
       }
     }
   }

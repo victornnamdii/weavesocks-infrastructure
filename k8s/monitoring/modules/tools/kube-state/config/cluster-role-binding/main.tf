@@ -1,8 +1,9 @@
-resource "kubernetes_cluster_role_binding_v1" "kube_state_cb" {
+resource "kubernetes_cluster_role_binding" "kube_state_crb" {
   metadata {
     name = "kube-state-metrics"
     labels = {
-      name = "kube-state-metrics"
+      "app.kubernetes.io/name"    = "kube-state-metrics"
+      "app.kubernetes.io/version" = "2.1.0"
     }
   }
 

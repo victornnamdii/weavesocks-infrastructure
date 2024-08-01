@@ -1,4 +1,4 @@
-resource "kubernetes_cluster_role_binding_v1" "prometheus_cb" {
+resource "kubernetes_cluster_role_binding" "prometheus_cb" {
   metadata {
     name = "prometheus"
     labels = {

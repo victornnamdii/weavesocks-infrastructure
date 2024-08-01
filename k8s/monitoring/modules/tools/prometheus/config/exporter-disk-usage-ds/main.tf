@@ -1,4 +1,4 @@
-resource "kubernetes_daemon_set_v1" "prometheus_ds" {
+resource "kubernetes_daemonset" "prometheus_ds" {
   metadata {
     name      = "node-directory-size-metrics"
     namespace = var.namespace
@@ -34,7 +34,11 @@ resource "kubernetes_daemon_set_v1" "prometheus_ds" {
           image = "giantswarm/tiny-tools"
 
           image_pull_policy = "Always"
-          command           = ["fish", "--command", "${file("${path.module}/data/script.sh")}"]
+          command = [
+            "fish",
+            "--command",
+            "${file("${path.module}/data/script.sh")}"
+          ]
 
           volume_mount {
             name       = "host-fs-var"

@@ -1,4 +1,4 @@
-resource "kubernetes_cluster_role_v1" "kube_state_cr" {
+resource "kubernetes_cluster_role" "kube_state_cr" {
   metadata {
     name = "kube-state-metrics"
     labels = {
@@ -9,14 +9,32 @@ resource "kubernetes_cluster_role_v1" "kube_state_cr" {
 
   rule {
     api_groups = [""]
-    resources  = ["configmaps", "secrets", "nodes", "pods", "services", "resourcequotas", "replicationcontrollers", "limitranges", "persistentvolumeclaims", "persistentvolumes", "namespaces", "endpoints"]
-    verbs      = ["list", "watch"]
+    resources = [
+      "configmaps",
+      "secrets",
+      "nodes",
+      "pods",
+      "services",
+      "resourcequotas",
+      "replicationcontrollers",
+      "limitranges",
+      "persistentvolumeclaims",
+      "persistentvolumes",
+      "namespaces",
+      "endpoints"
+    ]
+    verbs = ["list", "watch"]
   }
 
   rule {
     api_groups = ["apps"]
-    resources  = ["statefulsets", "daemonsets", "deployments", "replicasets"]
-    verbs      = ["list", "watch"]
+    resources = [
+      "statefulsets",
+      "daemonsets",
+      "deployments",
+      "replicasets"
+    ]
+    verbs = ["list", "watch"]
   }
 
   rule {
@@ -27,6 +45,12 @@ resource "kubernetes_cluster_role_v1" "kube_state_cr" {
 
   rule {
     api_groups = ["autoscaling"]
+    resources  = ["horizontalpodautoscalers"]
+    verbs      = ["list", "watch"]
+  }
+
+  rule {
+    api_groups = ["authentication.k8s.io"]
     resources  = ["tokenreviews"]
     verbs      = ["create"]
   }
@@ -57,8 +81,11 @@ resource "kubernetes_cluster_role_v1" "kube_state_cr" {
 
   rule {
     api_groups = ["admissionregistration.k8s.io"]
-    resources  = ["mutatingwebhookconfigurations", "validatingwebhookconfigurations"]
-    verbs      = ["list", "watch"]
+    resources = [
+      "mutatingwebhookconfigurations",
+      "validatingwebhookconfigurations"
+    ]
+    verbs = ["list", "watch"]
   }
 
   rule {

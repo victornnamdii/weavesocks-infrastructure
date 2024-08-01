@@ -35,7 +35,10 @@ resource "kubernetes_deployment" "prometheus" {
         container {
           name  = "prometheus"
           image = "prom/prometheus:v2.26.0"
-          args  = ["--storage.tsdb.retention=360h", "--config.file=/etc/prometheus/prometheus.yml"]
+          args = [
+            "--storage.tsdb.retention=360h",
+            "--config.file=/etc/prometheus/prometheus.yml"
+          ]
 
           port {
             name           = "web"

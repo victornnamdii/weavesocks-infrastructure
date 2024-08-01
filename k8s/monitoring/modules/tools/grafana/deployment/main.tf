@@ -85,9 +85,8 @@ resource "kubernetes_deployment" "grafana" {
 
         volume {
           name = "grafana-persistent-storage"
-          empty_dir {
 
-          }
+          empty_dir {}
         }
 
         node_selector = {

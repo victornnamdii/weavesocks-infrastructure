@@ -10,13 +10,13 @@ resource "kubernetes_daemonset" "prometheus_node_exporter_daemonset" {
   }
 
   spec {
-    strategy {
-      rolling_update {
-        max_unavailable = "10%"
-      }
+    # strategy {
+    #   rolling_update {
+    #     max_unavailable = "10%"
+    #   }
 
-      type = "RollingUpdate"
-    }
+    #   type = "RollingUpdate"
+    # }
 
     selector {
       match_labels = {
@@ -35,7 +35,16 @@ resource "kubernetes_daemonset" "prometheus_node_exporter_daemonset" {
 
       spec {
         container {
-          args  = ["--web.listen-address=0.0.0.0:9100", "--path.sysfs=/host/sys", "--path.rootfs=/host/root", "--no-collector.wifi", "--no-collector.hwmon", "--collector.filesystem.ignored-mount-points=^/(dev|proc|sys|var/lib/docker/.+|var/lib/kubelet/pods/.+)($|/)", "--collector.netclass.ignored-devices=^(veth.*)$", "--collector.netdev.device-exclude=^(veth.*)$"]
+          args = [
+            "--web.listen-address=0.0.0.0:9100",
+            "--path.sysfs=/host/sys",
+            "--path.rootfs=/host/root",
+            "--no-collector.wifi",
+            "--no-collector.hwmon",
+            "--collector.filesystem.ignored-mount-points=^/(dev|proc|sys|var/lib/docker/.+|var/lib/kubelet/pods/.+)($|/)",
+            "--collector.netclass.ignored-devices=^(veth.*)$",
+            "--collector.netdev.device-exclude=^(veth.*)$"
+          ]
           image = "quay.io/prometheus/node-exporter:v1.1.2"
           name  = "node-exporter"
 
