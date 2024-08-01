@@ -5,3 +5,5 @@ user_db        = # user DB url
 zipkin         = # "zipkin.jaeger.svc.cluster.local"
 domain_name    = # host name for ingress
 session_redis  = # "true" | "false"
+gf_security_admin_user = # grafana username
+gf_security_admin_password = # grafana password
