@@ -6,8 +6,10 @@ resource "kubernetes_ingress_v1" "sock_shop_ingress" {
 
   spec {
     ingress_class_name = "nginx"
+  
     rule {
       host = var.domain_name
+
       http {
         path {
           path      = "/"
