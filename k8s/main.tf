@@ -8,3 +8,9 @@ module "sock-shop" {
   user_db        = var.user_db
   domain_name    = var.domain_name
 }
+
+module "monitoring" {
+  source = "./monitoring"
+  gf_security_admin_password = var.gf_security_admin_password
+  gf_security_admin_user = var.gf_security_admin_user
+}
