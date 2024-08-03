@@ -1,4 +1,4 @@
-variable "slack_hook_url" {
+variable "domain_name" {
   type = string
 }
 
@@ -8,8 +8,4 @@ variable "alertmanager_svc_name" {
 
 variable "alertmanager_svc_port" {
   type = number
-}
-
-variable "domain_name" {
-  type = string
 }

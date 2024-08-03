@@ -4,6 +4,6 @@ module "deployment" {
   secret_name = var.secret_name
 }
 
-module "secret" {
+module "service" {
   source = "./service"
 }

@@ -1,8 +1,4 @@
-variable "gf_security_admin_user" {
-  type = string
-}
-
-variable "gf_security_admin_password" {
+variable "namespace" {
   type = string
 }
 

@@ -5,3 +5,7 @@ variable "gf_security_admin_password" {
 variable "gf_security_admin_user" {
   type = string
 }
+
+variable "domain_name" {
+  type = string
+}

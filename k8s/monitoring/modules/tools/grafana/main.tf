@@ -4,7 +4,7 @@ module "deployment" {
   secret_name = var.secret_name
 }
 
-module "secret" {
+module "service" {
   source = "./service"
   namespace = var.namespace
   grafana_dep_labels = module.deployment.grafana_dep_labels

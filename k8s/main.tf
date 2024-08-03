@@ -10,12 +10,14 @@ module "sock-shop" {
 }
 
 module "monitoring" {
-  source = "./monitoring"
+  source                     = "./monitoring"
   gf_security_admin_password = var.gf_security_admin_password
-  gf_security_admin_user = var.gf_security_admin_user
+  gf_security_admin_user     = var.gf_security_admin_user
+  domain_name                = var.domain_name
 }
 
 module "alerting" {
-  source = "./alerting"
+  source         = "./alerting"
   slack_hook_url = var.slack_hook_url
+  domain_name    = var.domain_name
 }
