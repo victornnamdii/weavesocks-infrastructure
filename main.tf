@@ -9,4 +9,5 @@ module "k8s" {
   domain_name                = var.domain_name
   gf_security_admin_password = var.gf_security_admin_password
   gf_security_admin_user     = var.gf_security_admin_user
+  slack_hook_url             = var.slack_hook_url
 }

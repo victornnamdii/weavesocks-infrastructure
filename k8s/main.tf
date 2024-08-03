@@ -14,3 +14,8 @@ module "monitoring" {
   gf_security_admin_password = var.gf_security_admin_password
   gf_security_admin_user = var.gf_security_admin_user
 }
+
+module "alerting" {
+  source = "./alerting"
+  slack_hook_url = var.slack_hook_url
+}

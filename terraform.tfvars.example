@@ -7,3 +7,4 @@ domain_name    = # host name for ingress
 session_redis  = # "true" | "false"
 gf_security_admin_user = # grafana username
 gf_security_admin_password = # grafana password
+slack_hook_url = # slack webhook url for alerts

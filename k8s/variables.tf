@@ -33,3 +33,7 @@ variable "gf_security_admin_password" {
 variable "gf_security_admin_user" {
   type = string
 }
+
+variable "slack_hook_url" {
+  type = string
+}
