@@ -28,7 +28,7 @@ resource "kubernetes_deployment" "carts_db_deployment" {
       spec {
         container {
           name  = "carts-db"
-          image = "mongo"
+          image = "mongo:4.4.29"
 
           port {
             name           = "mongo"
