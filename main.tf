@@ -11,3 +11,9 @@ module "k8s" {
   gf_security_admin_user     = var.gf_security_admin_user
   slack_hook_url             = var.slack_hook_url
 }
+
+
+module "aws" {
+  source = "./aws"
+  cluster_name = var.cluster_name
+}

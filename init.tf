@@ -5,21 +5,19 @@ terraform {
       version = "2.31.0"
     }
 
-    helm = {
-      source  = "hashicorp/helm"
-      version = "2.14.0"
+    aws = {
+      source  = "hashicorp/aws"
+      version = "5.61.0"
     }
   }
 }
 
 provider "kubernetes" {
-  config_path    = "~/.kube/config"
-  config_context = "minikube"
+  host                   = module.aws.cluster_endpoint
+  cluster_ca_certificate = base64decode(module.aws.cluster_ca_certificate)
+  token                  = module.aws.token
 }
 
-provider "helm" {
-  kubernetes {
-    config_path    = "~/.kube/config"
-    config_context = "minikube"
-  }
+provider "aws" {
+  region = "us-east-1"
 }
