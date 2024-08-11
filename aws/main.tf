@@ -1,41 +1,65 @@
-module "eks" {
-  source            = "./eks"
-  security_group_id = module.security_table.security_group_id
-  eks_cluster_arn   = module.iam.eks_cluster_arn
-  node_role_arn     = module.iam.node_role_arn
-  private_subnet1   = module.subnet.private_subnet1
-  private_subnet2   = module.subnet.private_subnet2
-  cluster_name      = var.cluster_name
-}
-
-module "iam" {
-  source       = "./iam"
-  cluster_name = var.cluster_name
+module "vpc" {
+  source = "./modules/vpc"
 }
 
 module "igw" {
-  source = "./igw"
-  vpc_id = module.vpc.sock_shop_vpc_id
+  source = "./modules/igw"
+  vpc_id = module.vpc.vpc_id
 }
 
-module "route_table" {
-  source         = "./route-table"
-  vpc_id         = module.vpc.sock_shop_vpc_id
-  igw_id         = module.igw.igw_id
-  public_subnet1 = module.subnet.public_subnet1
-  public_subnet2 = module.subnet.public_subnet2
+module "subnets" {
+  source = "./modules/subnets"
+  vpc_id = module.vpc.vpc_id
 }
 
-module "security_table" {
-  source = "./security-group"
-  vpc_id = module.vpc.sock_shop_vpc_id
+module "eip" {
+  source     = "./modules/eip"
+  depends_on = [module.igw]
 }
 
-module "subnet" {
-  source = "./subnet"
-  vpc_id = module.vpc.sock_shop_vpc_id
+module "nat_gateways" {
+  source      = "./modules/nat-gateways"
+  eip1_id     = module.eip.eip1_id
+  eip2_id     = module.eip.eip2_id
+  public_1_id = module.subnets.public_1_id
+  public_2_id = module.subnets.public_2_id
 }
 
-module "vpc" {
-  source = "./vpc"
+module "routing_table" {
+  source     = "./modules/routing-table"
+  vpc_id     = module.vpc.vpc_id
+  igw_id     = module.igw.igw_id
+  nat_gw1_id = module.nat_gateways.nat_gw1_id
+  nat_gw2_id = module.nat_gateways.nat_gw2_id
+}
+
+module "route_table_associations" {
+  source          = "./modules/route-table-associations"
+  public_1_id     = module.subnets.public_1_id
+  public_2_id     = module.subnets.public_2_id
+  public_rt_id    = module.routing_table.public_rt_id
+  private_1_id    = module.subnets.private_1_id
+  private_2_id    = module.subnets.private_2_id
+  private_rt_1_id = module.routing_table.private_rt_1_id
+  private_rt_2_id = module.routing_table.private_rt_2_id
+}
+
+module "iam" {
+  source = "./modules/iam"
+}
+
+module "eks" {
+  source       = "./modules/eks"
+  cluster_arn  = module.iam.cluster_arn
+  public_1_id  = module.subnets.public_1_id
+  public_2_id  = module.subnets.public_2_id
+  private_1_id = module.subnets.private_1_id
+  private_2_id = module.subnets.private_2_id
+  nodes_arn    = module.iam.nodes_arn
+
+  depends_on = [module.iam]
+}
+
+data "aws_eks_cluster_auth" "auth" {
+  name = module.eks.cluster_name
 }

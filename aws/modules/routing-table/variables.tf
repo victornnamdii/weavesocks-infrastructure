@@ -6,10 +6,10 @@ variable "igw_id" {
   type = string
 }
 
-variable "public_subnet1" {
+variable "nat_gw1_id" {
   type = string
 }
 
-variable "public_subnet2" {
+variable "nat_gw2_id" {
   type = string
 }
