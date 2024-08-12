@@ -1,6 +1,10 @@
 resource "kubernetes_ingress_v1" "alertmanager_ingress" {
   metadata {
     name = "alertmanager-ingress"
+
+    annotations = {
+      "cert-manager.io/cluster-issuer" = "letsencrypt-production"
+    }
   }
 
   spec {
@@ -25,6 +29,11 @@ resource "kubernetes_ingress_v1" "alertmanager_ingress" {
           }
         }
       }
+    }
+
+    tls {
+      hosts       = ["alerting.${var.domain_name}"]
+      secret_name = "tls-secret"
     }
   }
 }

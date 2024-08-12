@@ -21,3 +21,8 @@ module "alerting" {
   slack_hook_url = var.slack_hook_url
   domain_name    = var.domain_name
 }
+
+module "cluster_issuer" {
+  source            = "./cluster-issuer"
+  certificate_email = var.certificate_email
+}

@@ -2,6 +2,10 @@ resource "kubernetes_ingress_v1" "sock_shop_ingress" {
   metadata {
     name      = "sockshop-ingress"
     namespace = var.namespace
+
+    annotations = {
+      "cert-manager.io/cluster-issuer" = "letsencrypt-production"
+    }
   }
 
   spec {
@@ -26,6 +30,11 @@ resource "kubernetes_ingress_v1" "sock_shop_ingress" {
           }
         }
       }
+    }
+
+    tls {
+      hosts       = [var.domain_name]
+      secret_name = "tls-secret"
     }
   }
 }

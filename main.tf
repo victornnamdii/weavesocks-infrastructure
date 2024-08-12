@@ -21,6 +21,7 @@ module "k8s" {
   gf_security_admin_password = var.gf_security_admin_password
   gf_security_admin_user     = var.gf_security_admin_user
   slack_hook_url             = var.slack_hook_url
+  certificate_email          = var.certificate_email
 
   depends_on = [module.helm]
 }

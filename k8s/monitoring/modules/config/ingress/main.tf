@@ -2,6 +2,10 @@ resource "kubernetes_ingress_v1" "prom_grafana_ingress" {
   metadata {
     name      = "prom-grafana-ingress"
     namespace = var.namespace
+
+    annotations = {
+      "cert-manager.io/cluster-issuer" = "letsencrypt-production"
+    }
   }
 
   spec {
@@ -47,6 +51,14 @@ resource "kubernetes_ingress_v1" "prom_grafana_ingress" {
           }
         }
       }
+    }
+
+    tls {
+      hosts = [
+        "prometheus.${var.domain_name}",
+        "grafana.${var.domain_name}"
+      ]
+      secret_name = "tls-secret"
     }
   }
 }

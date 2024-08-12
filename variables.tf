@@ -41,3 +41,7 @@ variable "slack_hook_url" {
 variable "cluster_name" {
   type = string
 }
+
+variable "certificate_email" {
+  type = string
+}
