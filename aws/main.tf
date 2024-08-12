@@ -10,6 +10,7 @@ module "igw" {
 module "subnets" {
   source = "./modules/subnets"
   vpc_id = module.vpc.vpc_id
+  cluster_name = var.cluster_name
 }
 
 module "eip" {
@@ -50,6 +51,7 @@ module "iam" {
 
 module "eks" {
   source       = "./modules/eks"
+  cluster_name = var.cluster_name
   cluster_arn  = module.iam.cluster_arn
   public_1_id  = module.subnets.public_1_id
   public_2_id  = module.subnets.public_2_id

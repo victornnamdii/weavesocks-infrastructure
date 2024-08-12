@@ -5,7 +5,7 @@ resource "kubernetes_ingress_v1" "prom_grafana_ingress" {
   }
 
   spec {
-    ingress_class_name = "nginx"
+    ingress_class_name = "external-ingress-nginx"
 
     rule {
       host = "prometheus.${var.domain_name}"

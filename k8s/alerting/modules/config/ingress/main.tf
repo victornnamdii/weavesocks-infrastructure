@@ -4,7 +4,7 @@ resource "kubernetes_ingress_v1" "alertmanager_ingress" {
   }
 
   spec {
-    ingress_class_name = "nginx"
+    ingress_class_name = "external-ingress-nginx"
 
     rule {
       host = "alerting.${var.domain_name}"

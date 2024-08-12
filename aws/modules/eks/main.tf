@@ -1,5 +1,5 @@
 resource "aws_eks_cluster" "sock_shop_eks" {
-  name     = "sock_shop"
+  name     = var.cluster_name
   role_arn = var.cluster_arn
   version  = "1.30"
 

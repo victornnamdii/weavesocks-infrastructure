@@ -5,8 +5,8 @@ resource "kubernetes_ingress_v1" "sock_shop_ingress" {
   }
 
   spec {
-    ingress_class_name = "nginx"
-  
+    ingress_class_name = "external-ingress-nginx"
+
     rule {
       host = var.domain_name
 
