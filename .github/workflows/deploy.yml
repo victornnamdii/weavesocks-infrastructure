@@ -30,7 +30,7 @@ jobs:
         run: terraform init
 
       - name: Terraform Refresh
-        run: terraform refresh
+        run: terraform refresh -target=module.aws
         env:
           TF_VAR_mysql_password: ${{ secrets.MYSQL_PASSWORD }}
           TF_VAR_mysql_db: ${{ secrets.MYSQL_DB }}
