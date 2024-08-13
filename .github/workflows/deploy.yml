@@ -3,7 +3,7 @@ name: Terraform Deploy
 on:
   push:
     branches:
-      - main # or your default branch
+      - master
 
 jobs:
   terraform:
