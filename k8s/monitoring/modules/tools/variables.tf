@@ -13,3 +13,13 @@ variable "grafana_configmap_name" {
 variable "prometheus_configmap_name" {
   type = string
 }
+
+variable "gf_security_admin_user" {
+  type = string
+  sensitive = true
+}
+
+variable "gf_security_admin_password" {
+  type = string
+  sensitive = true
+}

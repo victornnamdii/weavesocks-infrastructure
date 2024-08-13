@@ -1,9 +1,11 @@
 variable "mysql_db" {
   type = string
+  sensitive = true
 }
 
 variable "mysql_password" {
   type = string
+  sensitive = true
 }
 
 variable "java_opts" {
@@ -28,14 +30,17 @@ variable "session_redis" {
 
 variable "gf_security_admin_password" {
   type = string
+  sensitive = true
 }
 
 variable "gf_security_admin_user" {
   type = string
+  sensitive = true
 }
 
 variable "slack_hook_url" {
   type = string
+  sensitive = true
 }
 
 variable "cluster_name" {
