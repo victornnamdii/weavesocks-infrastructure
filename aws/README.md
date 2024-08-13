@@ -83,6 +83,12 @@ The configuration for the IGW can be found at [modules/subnets/main.tf](./module
 
 - Each subnet was given different CIDR blocks under the VPC's CIDR block to provide network isolation.
 
-- The two public subnets were put in two different availability zones to enhance the EKS' availability and fault tolerance in case one availability zone is down. The same was done for the private subnets.
+- The two public subnets were put in two different availability zones to enhance the EKS' availability and fault tolerance in case one availability zone is down. The same was done for the private subnets. This is also an AWS recommendation for production deployments.
 
-- 
+- Foor public subnets, each instance launched on it needed to be assigned a public IP. This was done by setting `map_public_ip_on_launch` to `true`.
+
+- The tag `"kubernetes.io/cluster/<cluster_name>" = "shared"` allows the EKS cluster to discover the subnet and use it.
+
+- The tag `"kubernetes.io/role/elb" = 1` allows public load balancers to be placed in public subnets
+
+- The tag `"kubernetes.io/role/internal-elb" = 1` allows private load balancers to be placed in private subnets
