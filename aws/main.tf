@@ -2,6 +2,11 @@ module "vpc" {
   source = "./modules/vpc"
 }
 
+module "security_group" {
+  source = "./modules/security-group"
+  vpc_id = module.vpc.vpc_id
+}
+
 module "igw" {
   source = "./modules/igw"
   vpc_id = module.vpc.vpc_id

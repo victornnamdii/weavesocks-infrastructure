@@ -132,3 +132,9 @@ The configuration for the route tables can be found at [modules/route-tables/mai
   - A route is created where `0.0.0.0/0` CIDR block also known as the internet is specified as the Destination
   - The IGW created is linked to the route created using the `gateway_id`.
   - This routes traffic from our internet gateway to the internet
+
+- Two private route tables are created for the two NAT gateways created above
+  - The route table is connected to the created VPC using `vpc_id` attribute
+  - A route is created where `0.0.0.0/0` CIDR block also known as the internet is specified as the Destination
+  - The two NAT gateways created is linked to the route created using the `gateway_id`.
+  - This routes traffic from our NAT gateway to the internet
