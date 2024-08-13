@@ -28,6 +28,9 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
+      
+      - name: Terraform Refresh
+        run: terraform refresh
 
       - name: Terraform Plan AWS
         run: terraform plan -target=module.aws
