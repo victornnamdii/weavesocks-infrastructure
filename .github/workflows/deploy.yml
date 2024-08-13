@@ -1,0 +1,65 @@
+name: Terraform Deploy
+
+on:
+  push:
+    branches:
+      - main # or your default branch
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.9.0
+
+      - name: Cache Terraform modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.terraform
+          key: ${{ runner.os }}-terraform-${{ hashFiles('**/*.tf') }}
+          restore-keys: |
+            ${{ runner.os }}-terraform-
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Plan
+        run: terraform plan
+        env:
+          TF_VAR_mysql_password: ${{ secrets.MYSQL_PASSWORD }}
+          TF_VAR_mysql_db: ${{ secrets.MYSQL_DB }}
+          TF_VAR_java_opts: ${{ secrets.JAVA_OPTS }}
+          TF_VAR_user_db: ${{ secrets.USER_DB }}
+          TF_VAR_zipkin: ${{ secrets.ZIPKIN }}
+          TF_VAR_domain_name: ${{ secrets.DOMAIN_NAME }}
+          TF_VAR_session_redis: "true"
+          TF_VAR_gf_security_admin_password: ${{ secrets.GF_SECURITY_ADMIN_PASSWORD }}
+          TF_VAR_gf_security_admin_user: ${{ secrets.GF_SECURITY_ADMIN_USER }}
+          TF_VAR_slack_hook_url: ${{ secrets.SLACK_HOOK_URL }}
+          TF_VAR_cluster_name: ${{ secrets.CLUSTER_NAME }}
+          TF_VAR_certificate_email: ${{ secrets.CERTIFICATE_EMAIL }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+        env:
+          TF_VAR_mysql_password: ${{ secrets.MYSQL_PASSWORD }}
+          TF_VAR_mysql_db: ${{ secrets.MYSQL_DB }}
+          TF_VAR_java_opts: ${{ secrets.JAVA_OPTS }}
+          TF_VAR_user_db: ${{ secrets.USER_DB }}
+          TF_VAR_zipkin: ${{ secrets.ZIPKIN }}
+          TF_VAR_domain_name: ${{ secrets.DOMAIN_NAME }}
+          TF_VAR_session_redis: "true"
+          TF_VAR_gf_security_admin_password: ${{ secrets.GF_SECURITY_ADMIN_PASSWORD }}
+          TF_VAR_gf_security_admin_user: ${{ secrets.GF_SECURITY_ADMIN_USER }}
+          TF_VAR_slack_hook_url: ${{ secrets.SLACK_HOOK_URL }}
+          TF_VAR_cluster_name: ${{ secrets.CLUSTER_NAME }}
+          TF_VAR_certificate_email: ${{ secrets.CERTIFICATE_EMAIL }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}Ï
