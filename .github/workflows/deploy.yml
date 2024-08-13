@@ -29,24 +29,6 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
-      - name: Terraform Refresh
-        run: terraform refresh -target=module.aws
-        env:
-          TF_VAR_mysql_password: ${{ secrets.MYSQL_PASSWORD }}
-          TF_VAR_mysql_db: ${{ secrets.MYSQL_DB }}
-          TF_VAR_java_opts: ${{ secrets.JAVA_OPTS }}
-          TF_VAR_user_db: ${{ secrets.USER_DB }}
-          TF_VAR_zipkin: ${{ secrets.ZIPKIN }}
-          TF_VAR_domain_name: ${{ secrets.DOMAIN_NAME }}
-          TF_VAR_session_redis: "true"
-          TF_VAR_gf_security_admin_password: ${{ secrets.GF_SECURITY_ADMIN_PASSWORD }}
-          TF_VAR_gf_security_admin_user: ${{ secrets.GF_SECURITY_ADMIN_USER }}
-          TF_VAR_slack_hook_url: ${{ secrets.SLACK_HOOK_URL }}
-          TF_VAR_cluster_name: ${{ secrets.CLUSTER_NAME }}
-          TF_VAR_certificate_email: ${{ secrets.CERTIFICATE_EMAIL }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
       - name: Terraform Plan AWS
         run: terraform plan -target=module.aws
         env:
