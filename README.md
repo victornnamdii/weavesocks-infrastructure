@@ -55,6 +55,10 @@ The CI/CD pipeline is handled by GitHub Actions. The workflow is contained in [.
 
 To use the workflow, a Terraform Cloud user API token was generated and stored as a GitHub secret which was then referenced in the [workflow file](./.github/workflows/deploy.yml).
 
+A Terraform Cloud user account was used so the state of all resources could be stored and retrieved by GitHub Actions and also it can available to anyone with access to the Terraform Cloud user account.
+
+Environment variables and Terraform variables were also stored in the user account's organisation workspace to provide security for sensitive data.
+
 ## Monitoring and Alerts
 
 Service monitoring and alerts are handled by Prometheus, Grafana, and AlertManager. Their configuration and more details about them can be found at [k8s/monitoring](./k8s/monitoring/).
