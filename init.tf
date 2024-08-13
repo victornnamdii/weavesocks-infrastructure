@@ -1,4 +1,11 @@
 terraform {
+  backend "remote" {
+    organization = "victornnamdii-org"
+
+    workspaces {
+      name = "sock-shop"
+    }
+  }
   required_providers {
     kubernetes = {
       source  = "hashicorp/kubernetes"
