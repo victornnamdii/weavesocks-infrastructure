@@ -23,7 +23,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region:  ${{ secrets.AWS_REGION }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Configure kubectl
         run: aws eks --region ${{ secrets.AWS_REGION }} update-kubeconfig --name ${{ secrets.CLUSTER_NAME }}
@@ -39,8 +39,22 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
-      - name: Terraform Plan
-        run: terraform plan
+      - name: Terraform Plan AWS
+        run: terraform plan -target=module.aws
+        env:
+          TF_VAR_cluster_name: ${{ secrets.CLUSTER_NAME }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Terraform Apply AWS
+        run: terraform apply -target=module.aws -auto-approve
+        env:
+          TF_VAR_cluster_name: ${{ secrets.CLUSTER_NAME }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Terraform Plan K8s
+        run: terraform plan -target=module.k8s
         env:
           TF_VAR_mysql_password: ${{ secrets.MYSQL_PASSWORD }}
           TF_VAR_mysql_db: ${{ secrets.MYSQL_DB }}
@@ -56,8 +70,9 @@ jobs:
           TF_VAR_certificate_email: ${{ secrets.CERTIFICATE_EMAIL }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      - name: Terraform Apply
-        run: terraform apply -auto-approve
+
+      - name: Terraform Apply K8s
+        run: terraform apply -target=module.k8s -auto-approve
         env:
           TF_VAR_mysql_password: ${{ secrets.MYSQL_PASSWORD }}
           TF_VAR_mysql_db: ${{ secrets.MYSQL_DB }}
