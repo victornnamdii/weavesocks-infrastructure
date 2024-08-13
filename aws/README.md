@@ -2,6 +2,16 @@
 
 This directory contains the infrastructure for the Amazon Web Services utilized for this project.
 
+## Table of Contents
+
+- [Infrastructure Diagram](#internet-gateways)
+- [File Structure](#file-structure)
+- [Design Decisions](#design-decisions)
+  - [VPC](#vpc)
+  - [Internet Gateways](#internet-gateways)
+  - [Subnets](#subnets)
+  - [Elastic Ips](#elastic-ips)
+
 ## Infrastructure Diagram
 
 ## File Structure
@@ -41,7 +51,6 @@ aws/
 - [main.tf](main.tf): Contains the main infrastructure setup for AWS
 - [outputs.tf](outputs.tf): Contains outputs for this module to be used by other modules.
 
-
 ## Design Decisions
 
 The decisions i took that resulted in this infrastructure can be found below:
@@ -60,24 +69,23 @@ The configuration for the VPC can be found at [modules/vpc/main.tf](./modules/vp
 
 - I didn't need an IPv6 CIDR block, so i set **assign_generated_ipv6_cidr_block** to false.
 
-The VPC's id was then outputted so it could be used by other modules in this infrastructure.
+The ID for the VPC is then outputted from [modules/vpc/outputs.tf](./modules/vpc/outputs.tf) so other modules in the infrastructure can use it.
 
 ### Internet Gateways
 
-The EKS Cluster would require communication with the internet, so i had to add an `Internet Gateway` (IGW) to my VPC. The IGW enables communication between instances in the VPC and the internet. It serves as a bridge between the VPC and the external network.
+The EKS Cluster would require inbound and outbound traffic to the internet, so i had to add an `Internet Gateway` (IGW) to my VPC. The IGW enables communication between instances in the VPC and the internet. It serves as a bridge between the VPC and the external network.
 
 The configuration for the IGW can be found at [modules/igw/main.tf](./modules/igw/main.tf).
 
 - The outputted VPC id from the `vpc` module is connected to the Internet Gateway through `vpc_id` so the Internet gateway can be linked to the VPC created.
 
-The IGW's id was then outputted so it could be used by other modules in this infrastructure.
-
+The IDs for the IGWs is then outputted from [modules/igw/outputs.tf](./modules/igw/outputs.tf) so other modules in the infrastructure can use them.
 
 ### Subnets
 
 Private and Public Subnets were created to help with routing and controlling the flow of traffic between dufferent parts of the VPC's network. They were created in two different availability zones to enhance the EKS' availability and fault tolerance in case one availability zone is down.
 
-The configuration for the IGW can be found at [modules/subnets/main.tf](./modules/subnets/main.tf).
+The configuration for the Subnets can be found at [modules/subnets/main.tf](./modules/subnets/main.tf).
 
 - The outputted VPC id from the `vpc` module is connected to all subnets through `vpc_id` so the subnets can be linked to the VPC created.
 
@@ -92,3 +100,35 @@ The configuration for the IGW can be found at [modules/subnets/main.tf](./module
 - The tag `"kubernetes.io/role/elb" = 1` allows public load balancers to be placed in public subnets
 
 - The tag `"kubernetes.io/role/internal-elb" = 1` allows private load balancers to be placed in private subnets
+
+The IDs for each subnet are then outputted from [modules/subnets/outputs.tf](./modules/subnets/outputs.tf) so other modules in the infrastructure can use them.
+
+### Elastic IPs
+
+Instances in the VPC's private subnet would need to communicate with the internet for things like software installation and updates, to be able to do this, NAT Gateways would be used to allow instances in the private subnet communicate with the internet. The NAT Gateways would require public static IP adddresses to be allocated to them to help with the internet communication. AWS Elastic IPs (EIP) are suitable for this purpose.
+
+The configuration for the EIPs can be found at [modules/eip/main.tf](./modules/eip/main.tf).
+
+- The file contains just 2 terraform `aws_eip` resources, which their IDs are then outputted from [modules/eip/outputs.tf](./modules/eip/outputs.tf) so the nat gateway module can use them.
+
+
+### NAT Gateways
+
+As mentioned above, instances in the VPC's private subnet would need to communicate with the internet for things like software installation and updates, to be able to do this, NAT Gateways would be used to allow instances in the private subnet communicate with the internet.
+
+The configuration for the NAT Gateways can be found at [modules/nat-gateways/main.tf](./modules/nat-gateways/main.tf).
+
+- The IDs of the EIPs created are then linked to the NAT Gateways and so are the subnets using `allocation_id` and `subnet_id` fields respectively.
+
+
+### Route Tables
+
+Route tables contain rules that determine where traffic from the subnets are directed to. And since the subnets contain internet gateways and nat gateways that should allow communication with the internet, I decided to use route tables to direct traffic  from the IGWs and NAT gateways to the internet.
+
+The configuration for the route tables can be found at [modules/route-tables/main.tf](./modules/route-tables/main.tf).
+
+- A public route table is created for the internet gateway.
+  - The route table is connected to the created VPC using `vpc_id` attribute
+  - A route is created where `0.0.0.0/0` CIDR block also known as the internet is specified as the Destination
+  - The IGW created is linked to the route created using the `gateway_id`.
+  - This routes traffic from our internet gateway to the internet

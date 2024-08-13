@@ -27,7 +27,7 @@ module "nat_gateways" {
 }
 
 module "routing_table" {
-  source     = "./modules/routing-table"
+  source     = "./modules/route-tables"
   vpc_id     = module.vpc.vpc_id
   igw_id     = module.igw.igw_id
   nat_gw1_id = module.nat_gateways.nat_gw1_id
