@@ -8,8 +8,8 @@ module "igw" {
 }
 
 module "subnets" {
-  source = "./modules/subnets"
-  vpc_id = module.vpc.vpc_id
+  source       = "./modules/subnets"
+  vpc_id       = module.vpc.vpc_id
   cluster_name = var.cluster_name
 }
 
