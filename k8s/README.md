@@ -145,7 +145,7 @@ k8s/
 
 ## Implementation Decisions
 
-Most of the terraform resources here are replications of the Kubernetes Manifests contained in the Sock-Shop Repo at https://github.com/microservices-demo/microservices-demo/tree/master/deploy/kubernetes.
+Most of the terraform resources here are terraform replications of the Kubernetes Manifests contained in the Sock-Shop Repo at https://github.com/microservices-demo/microservices-demo/tree/master/deploy/kubernetes.
 
 I took some decisions to enhance performance and security of the application and you can find them below:
 
