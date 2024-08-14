@@ -151,7 +151,7 @@ I took some decisions to enhance performance and security of the application and
 
 ### Alerting
 
-- The alertmanager deployment initially was set to take the Slack webhook URL from an environmental variable and then use the `sed` command in a shell script to insert the URL into the file `cp /etc/alertmanager/config.yml`. This was not possible because the file is mounted in a read-only volume through a config map, so this needed to be fixed.
+- The alertmanager deployment initially was set to take the Slack webhook URL from an environmental variable and then use the `sed` command in a shell script to insert the URL into the file `/etc/alertmanager/config.yml`. This was not possible because the file is mounted in a read-only volume through a config map, so this needed to be fixed.
 
   - To fix this, i added an init container that created a writable volume, then at point of start up for alertmanager, made the shell script copy the config file that would contain the URL to that writable volume, edit the file there and then use the edited file as the config file.
   - This can be seen in the configuration for the [Kubernetes deployment for alertmanager](./alerting/modules/alertmanager/deployment.tf)
@@ -195,7 +195,7 @@ I took some decisions to enhance performance and security of the application and
 - The app was initially set to use the latest versions of MongoDB, but some queries used by some microservices was obsolete and no longer supported by new versions of MongoDB. To fix this, i set the MongoDB containers to older versions that supported the queries used the app.
 
   - A better fix would have been the developer of the app to change the outdated queries used the app to newer and supported ones, but i don't have access to the developer, so i decided to use an older version of MongoDB.
-  - This is seen in [carts-db](./sock-shop/modules/config/database/carts-db/) and [orders-db](./sock-shop/modules/config/database/orders-db/) where the MongoDB versions are set to `4.4.29`.
+  - This is seen in [carts-db](./sock-shop/modules/config/database/carts-db/) and [orders-db](./sock-shop/modules/config/database/orders-db/deployment.tf) where the MongoDB versions are set to `4.4.29`.
 
 - I added config maps to store some configurations for the app like `JAVA_OPTS`. This helps provide a single point of correction, seeing that multiple microservices use that variable, if the value needs to changed at any point in the future, only a single terraform variable would require change, instead of opening the configuration for each microservice and changing the value. This saves time and makes development and maintenance easier. It also improves security as the value can't been seen in plain text in the code.
 
