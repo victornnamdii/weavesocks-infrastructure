@@ -1,6 +1,6 @@
 # AWS Infrastructure
 
-This directory contains the infrastructure for the Amazon Web Services utilized for this project.
+This directory contains the infrastructure for the **Amazon Web Services** utilized for this project.
 
 ## Table of Contents
 
@@ -216,4 +216,4 @@ The configuration for the EKS clusters and the Kubernetes nodes can be found at 
   - The instance type was set to `t3.large` as it  was best suited for my infrastructure. The infrastructure would require up to 35 pods, and `t3.large`  was capable of hosting that amount of pods per node unlike instances with lower capacity than it.
   - For the `scaling_config`, 1 node was enough for this project,  as it would not be facing a lot of traffic. This was why the `max_size`,  `desired_size` and `min_size` attributes were all set to 1. This was done to  also minimize costs.
 
-The Cluster Endpoint, and CA certificate are then outputted from [modules/eks/outputs.tf](./modules/eks/outputs.tf) so the K8s module in the infrastructure can use it.
+The Cluster Endpoint, and CA certificate are then outputted from [modules/eks/outputs.tf](./modules/eks/outputs.tf) so the [K8s](../k8s/) module in the infrastructure can use it.
