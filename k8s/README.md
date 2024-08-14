@@ -40,6 +40,36 @@ k8s/
       ├── secret.tf
       └── variables.tf
     ├── tools/
+      ├── grafana/
+        ├── data/
+        ├── deployment.tf
+        ├── import-dashboard-job.tf
+        ├── outputs.tf
+        ├── service.tf
+        └── variables.tf
+      ├── kube-state/
+        ├── cluster-role-binding.tf
+        ├── cluster-role.tf
+        ├── deployment.tf
+        ├── service-account.tf
+        ├── service.tf
+        └── variables.tf
+      ├── prometheus/
+        ├── data/
+        ├── node-exporter/
+        ├── alert-rules.tf
+        ├── cluster-role-binding.tf
+        ├── cluster-role.tf
+        ├── deployment.tf
+        ├── export-disk-usage-ds.tf
+        ├── node-exporter.tf
+        ├── outputs.tf
+        ├── service-account.tf
+        ├── service.tf
+        └── variables.tf
+      ├── main.tf
+      ├── outputs.tf
+      └── variables.tf
     ├── main.tf
     └── variables.tf
   ├── main.tf
