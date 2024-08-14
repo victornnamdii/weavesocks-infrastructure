@@ -20,8 +20,8 @@ module "session_db" {
 }
 
 module "user_db" {
-  source    = "./user-db"
-  namespace = var.namespace
+  source      = "./user-db"
+  namespace   = var.namespace
   secret_name = var.secret_name
 }
 
