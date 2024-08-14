@@ -1,4 +1,4 @@
-# WeaveSocks Infrastructure
+# WeaveSocks' Sock Shop Infrastructure
 
 This repo contains the Amazon Web Services (AWS) IaaC (Infrastructure as Code) for **WeaveSocks**'s sock shop, which is a microservices-based application deployed on kubernetes. It also serves as the solution to my AltSchool Capstone Project.
 
