@@ -32,8 +32,29 @@ resource "kubernetes_ingress_v1" "sock_shop_ingress" {
       }
     }
 
+    rule {
+      host = "www.${var.domain_name}"
+
+      http {
+        path {
+          path      = "/"
+          path_type = "Prefix"
+
+          backend {
+            service {
+              name = var.frontend_svc_name
+
+              port {
+                number = var.frontend_svc_port
+              }
+            }
+          }
+        }
+      }
+    }
+
     tls {
-      hosts       = [var.domain_name]
+      hosts       = [var.domain_name, "www.${var.domain_name}"]
       secret_name = "tls-secret"
     }
   }
