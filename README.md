@@ -40,7 +40,7 @@ weavesocks-infrastructure/
 └── variables.tf
 ```
 
-- [aws](./aws/): Contains the infrastructure for all Amazon Web Services used for this deployment. To see more information on the AWS infrastructure, check the the README file [here](./aws/)
+- [aws](./aws/): Contains the infrastructure for all Amazon Web Services used for this deployment. To see more information on the AWS infrastructure, check the the README file [here](./aws/).
 - [helm](./helm/): Contains the infrastructure for Helm chart repositories and installation for the EKS cluster.
 - [k8s](./k8s/): Contains the infrastructure for all kubernetes resources required for the kubernetes deployment.
 - [main.tf](main.tf): Contains the main infrastructure setup

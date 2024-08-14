@@ -16,6 +16,7 @@ This directory contains the infrastructure for the Amazon Web Services utilized 
   - [Route Table Associations](#route-table-associations)
   - [Security Groups](#security-groups)
   - [IAM Role Policies](#iam-role-policies)
+  - [Elastic Kubernetes Service](#elastic-kubernetes-service)
 
 ## Infrastructure Diagram
 
