@@ -13,7 +13,7 @@ resource "aws_security_group" "sock_shop_sg" {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]  # Allow SSH traffic from anywhere
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
