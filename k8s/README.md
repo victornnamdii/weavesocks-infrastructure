@@ -195,7 +195,7 @@ I took some decisions to enhance performance and security of the application and
 - The app was initially set to use the latest versions of MongoDB, but some queries used by some microservices was obsolete and no longer supported by new versions of MongoDB. To fix this, i set the MongoDB containers to older versions that supported the queries used the app.
 
   - A better fix would have been the developer of the app to change the outdated queries used the app to newer and supported ones, but i don't have access to the developer, so i decided to use an older version of MongoDB.
-  - This is seen in [carts-db](./sock-shop/modules/config/database/carts-db/) and [orders-db](./sock-shop/modules/config/database/orders-db/deployment.tf) where the MongoDB versions are set to `4.4.29`.
+  - This is seen in [carts-db](./sock-shop/modules/config/database/carts-db/deployment.tf) and [orders-db](./sock-shop/modules/config/database/orders-db/deployment.tf) where the MongoDB versions are set to `4.4.29`.
 
 - I added config maps to store some configurations for the app like `JAVA_OPTS`. This helps provide a single point of correction, seeing that multiple microservices use that variable, if the value needs to changed at any point in the future, only a single terraform variable would require change, instead of opening the configuration for each microservice and changing the value. This saves time and makes development and maintenance easier. It also improves security as the value can't been seen in plain text in the code.
 
