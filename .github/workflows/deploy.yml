@@ -36,9 +36,16 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
-      - name: Terraform Plan
-        run: terraform plan
+      - name: Terraform Plan AWS and Helm
+        run: terraform plan -target=module.aws -target=module.helm
 
-      - name: Terraform Apply
+      - name: Terraform Apply AWS and Helm
         if: github.event_name == 'push'
-        run: terraform apply --auto-approve
+        run: terraform apply --auto-approve -target=module.aws -target=module.helm
+
+      - name: Terraform Plan K8s
+        run: terraform plan -target=module.k8s
+
+      - name: Terraform Apply K8s
+        if: github.event_name == 'push'
+        run: terraform apply --auto-approve -target=module.k8s
