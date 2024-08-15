@@ -74,7 +74,7 @@ Environment variables and Terraform variables were also stored in the user accou
 
 ## Monitoring, Logging and Alerts
 
-Service monitoring, logging and alerts are handled by Prometheus, Grafana, and AlertManager. Their configuration and more details about them can be found at [k8s/monitoring](./k8s/monitoring/).
+Service monitoring, logging and alerts are handled by Prometheus, Grafana, and AlertManager. Their configuration and more details about them can be found at [k8s/monitoring](./k8s).
 
 ## Screenshots
 
@@ -121,3 +121,13 @@ Service monitoring, logging and alerts are handled by Prometheus, Grafana, and A
 
 - Executing a query on prometheus
   ![](./images/prometheus.png)
+
+- AWS Resources on my account
+  ![](./images/aws-eip.png)
+  ![](./images/aws-eks.png)
+  ![](./images/aws-eks-services.png)
+  ![](./images/aws-eks-pods.png)
+  ![](./images/aws-eks-pods-2.png)
+  ![](./images/aws-iam-roles.png)
+  ![](./images/aws-vpc.png)
+  ![](./images/aws-vpc-2.png)
