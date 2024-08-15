@@ -20,6 +20,8 @@ This directory contains the infrastructure for the **Amazon Web Services** utili
 
 ## Infrastructure Diagram
 
+![](../images/AWS_INFRA.png)
+
 ## File Structure
 
 The following is an overview of the file structure for this infrastructure:

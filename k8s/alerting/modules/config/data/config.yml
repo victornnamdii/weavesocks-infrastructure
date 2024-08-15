@@ -11,10 +11,10 @@ route:
       receiver: slack-all
 
 receivers:
-  - name: "slack-all"
-    slack_configs:
-      - channel: "#sockshop-ops"
-        send_resolved: true
-        title: "{{ range .Alerts }}{{ .Annotations.summary }}\n{{ end }}"
-        text: "{{ range .Alerts }}{{ .Annotations.description }}\n{{ end }}"
-        api_url: https://hooks.slack.com/services/API_URL_SECRET
+- name: "slack-all"
+  slack_configs:
+  - channel: "#sockshop-ops"
+    send_resolved: true
+    title: "{{ range .Alerts }}{{ .Annotations.summary }}\n{{ end }}"
+    text: "{{ range .Alerts }}{{ .Annotations.description }}\n{{ end }}"
+    api_url: https://hooks.slack.com/services/API_URL_SECRET

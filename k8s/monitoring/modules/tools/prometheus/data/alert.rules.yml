@@ -1,11 +1,21 @@
 groups:
-  - name: HighErrorRate
-    rules:
-      - alert: HighErrorRate
-        expr: rate(request_duration_seconds_count{status_code="500"}[5m]) > 1
-        for: 5m
-        labels:
-          severity: slack
-        annotations:
-          summary: "High HTTP 500 error rates"
-          description: "Rate of HTTP 500 errors per 5 minutes: {{ $value }}"
+- name: HighErrorRate
+  rules:
+  - alert: HighErrorRate
+    expr: rate(request_duration_seconds_count{status_code="500"}[5m]) > 1
+    for: 5m
+    labels:
+      severity: slack
+    annotations:
+      summary: "High HTTP 500 error rates"
+      description: "Rate of HTTP 500 errors per 5 minutes: {{ $value }}"
+- name: NewOrder
+  rules:
+  - alert: NewOrder
+    expr: increase(request_duration_seconds_count{name="orders",method="POST",status_code="201"}[1m]) > 0
+    for: 1m
+    labels:
+      severity: slack
+    annotations:
+      summary: "New orders were placed on the website"
+      description: "Count of new orders in the last minute: {{ $value }}"

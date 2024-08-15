@@ -26,6 +26,8 @@ Socks Shop's Microservices Kubernetes manifests can be found on: https://github.
 
 ## Infrastructure Diagram
 
+![](./images/WEB_INFRA.png)
+
 ## File Structure
 
 The following is an overview of the file structure for this project:
@@ -59,6 +61,52 @@ A Terraform Cloud user account was used so the state of all resources could be s
 
 Environment variables and Terraform variables were also stored in the user account's organisation workspace to provide security for sensitive data.
 
-## Monitoring and Alerts
+## Monitoring, Logging and Alerts
 
 Service monitoring and alerts are handled by Prometheus, Grafana, and AlertManager. Their configuration and more details about them can be found at [k8s/monitoring](./k8s/monitoring/).
+
+## Screenshots
+
+- The Sock Shop's frontend home page running on my domain `victorilodiuba.me` with HTTPS encryption.
+  ![](./images/frontend.png)
+
+- The view of the shopping cart page.
+  ![](./images/shopping-cart.png)
+
+- The view of the catalogue page.
+  ![](./images/catalogue.png)
+
+- The view of the users and orders page.
+  ![](./images/orders.png)
+
+- Page containing description of a specific order.
+  ![](./images/orders.png)
+
+- Page containing description of a specific product.
+  ![](./images/product-page.png)
+
+- The grafana service running on my sub domain `grafana.victorilodiuba.me` with HTTPS encryption.
+  ![](./images/grafana-login.png)
+
+- The grafana dashboards.
+  ![](./images/grafana-dashboards.png)
+
+- Grafana Metrics for my Kubernetes nodes.
+  ![](./images/node-resources.png)
+
+- Grafana Metrics for samples ingested by prometheus, how frequently targets are scraped and how long the scrapes are taking.
+  ![](./images/prom-stats.png)
+
+- Grafana metrics for total logins, projected number of orders per day and the total amount of orders placed in the past hour.
+  ![](./images/sock-shop-analytics.png)
+
+- Grafana metrics for the latency of each service and their queries per second(QPS).
+  ![](./images/sock-shop-performance-2.png)
+  ![](./images/sock-shop-performance-3.png)
+  ![](./images/sock-shop-performance.png)
+
+- Alerts on prometheus
+  ![](./images/alerts.png)
+
+- Executing a query on prometheus
+  ![](./images/prometheus.png)

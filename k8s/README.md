@@ -4,12 +4,18 @@ This directory contains the infrastructure for the **Kubernetes** deployment in 
 
 ## Table of Contents
 
+- [Microservices Architecture](#microservices-architecture)
 - [File Structure](#file-structure)
 - [Implentation Decisions](#implementation-decisions)
   - [Alerting](#alerting)
   - [Cluster Issuer](#cluster-issuer)
   - [Monitoring and Logging](#monitoring-and-logging)
   - [Sock Shop](#sock-shop)
+
+
+## Microservices Architecture
+
+![](../images/Architecture.png)
 
 ## File Structure
 
@@ -155,6 +161,9 @@ I took some decisions to enhance performance and security of the application and
 
   - To fix this, i added an init container that created a writable volume, then at point of start up for alertmanager, made the shell script copy the config file that would contain the URL to that writable volume, edit the file there and then use the edited file as the config file.
   - This can be seen in the configuration for the [Kubernetes deployment for alertmanager](./alerting/modules/alertmanager/deployment.tf)
+
+- The alertmanager was kept in a different namespace from prometheus, and prometheus wasn't able to reach it because the alertmanager URL added to [prometheus.yml](./monitoring/modules/config/data/prometheus.yml) didn't initially contain the namespace.
+  - I fixed this by adding the namespace to the url. This can be seen in [prometheus.yml](./monitoring/modules/config/data/prometheus.yml).
 
 - I added a Ingress resource to the alertmanager service so it would be reachable through the internet.
 
