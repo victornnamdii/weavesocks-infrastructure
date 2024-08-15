@@ -13,6 +13,7 @@ This repo contains the Amazon Web Services (AWS) IaaC (Infrastructure as Code) f
   - [Resources](#resources)
 - [Infrastructure Diagram](#infrastructure-diagram)
 - [File Structure](#file-structure)
+- [Infrastructure](#infrastructure)
 - [Deployment Pipeline](#deployment-pipeline)
 - [Monitoring and Alerts](#monitoring-and-alerts)
 
@@ -51,6 +52,16 @@ weavesocks-infrastructure/
 
 To see more information about each infrastructure, open their directories.
 
+## Infrastructure
+
+The Infrastructure is divided into 3 major modules. They are `aws`, `k8s`, and `helm`.
+
+- The **aws** module contains the infrastructure for the Amazon Web Services utilized to provide hosting for the Kubernetes cluster required. To see a breakdown of the AWS infrastructure, and the decisions that brought about the infrastructure, check the the README file [here](./aws/).
+
+- The **k8s** module contains the infrastructure for the Kubernetes deployment required for the Sock Shop Microservice application. To see a breakdown of the Kubernetes deployment, and the decisions that brought about the infrastructure, check the the README file [here](./k8s/).
+
+- The **helm** module contains configurations for Helm chart installations that help the application run and meet the specified requirements. To see a breakdown of the Helm charts, and the decisions that originated them, check the the README file [here](./helm/).
+
 ## Deployment Pipeline
 
 The CI/CD pipeline is handled by GitHub Actions. The workflow is contained in [.github/workflows/deploy.yml](./.github/workflows/deploy.yml). It installs the latest version of Terraform CLI and configures the Terraform CLI configuration with an API token for Terraform Cloud. On pull request events, the workflow will run `terraform init`, `terraform fmt`, and `terraform plan`. On push events to the "master" branch, `terraform apply` will be executed.
@@ -63,7 +74,7 @@ Environment variables and Terraform variables were also stored in the user accou
 
 ## Monitoring, Logging and Alerts
 
-Service monitoring and alerts are handled by Prometheus, Grafana, and AlertManager. Their configuration and more details about them can be found at [k8s/monitoring](./k8s/monitoring/).
+Service monitoring, logging and alerts are handled by Prometheus, Grafana, and AlertManager. Their configuration and more details about them can be found at [k8s/monitoring](./k8s/monitoring/).
 
 ## Screenshots
 

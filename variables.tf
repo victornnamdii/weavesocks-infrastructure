@@ -49,4 +49,5 @@ variable "cluster_name" {
 
 variable "certificate_email" {
   type = string
+  sensitive = true
 }
