@@ -157,6 +157,7 @@ I took some decisions to enhance performance and security of the application and
 
 ### Alerting
 
+- The alertmanager was set to send alerts to a slack webhook URL.
 - The alertmanager deployment initially was set to take the Slack webhook URL from an environmental variable and then use the `sed` command in a shell script to insert the URL into the file `/etc/alertmanager/config.yml`. This was not possible because the file is mounted in a read-only volume through a config map, so this needed to be fixed.
 
   - To fix this, i added an init container that created a writable volume, then at point of start up for alertmanager, made the shell script copy the config file that would contain the URL to that writable volume, edit the file there and then use the edited file as the config file.

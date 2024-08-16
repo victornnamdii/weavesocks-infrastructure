@@ -16,6 +16,7 @@ This repo contains the Amazon Web Services (AWS) IaaC (Infrastructure as Code) f
 - [Infrastructure](#infrastructure)
 - [Deployment Pipeline](#deployment-pipeline)
 - [Monitoring and Alerts](#monitoring-and-alerts)
+- [Screenshots](#screenshots)
 
 ## Objective
 
@@ -116,11 +117,14 @@ Service monitoring, logging and alerts are handled by Prometheus, Grafana, and A
   ![](./images/sock-shop-performance-3.png)
   ![](./images/sock-shop-performance.png)
 
-- Alerts on prometheus
+- Alerts firing on prometheus
   ![](./images/alerts.png)
 
 - Executing a query on prometheus
   ![](./images/prometheus.png)
+
+- Getting an alert on my slack channel
+  ![](./images/slack-alert.jpeg)
 
 - AWS Resources on my account
   ![](./images/aws-eip.png)

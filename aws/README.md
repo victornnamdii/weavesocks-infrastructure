@@ -219,3 +219,10 @@ The configuration for the EKS clusters and the Kubernetes nodes can be found at 
   - For the `scaling_config`, 1 node was enough for this project,  as it would not be facing a lot of traffic. This was why the `max_size`,  `desired_size` and `min_size` attributes were all set to 1. This was done to  also minimize costs.
 
 The Cluster Endpoint, and CA certificate are then outputted from [modules/eks/outputs.tf](./modules/eks/outputs.tf) so the [K8s](../k8s/) module in the infrastructure can use it.
+
+
+### Domain Registration
+
+My domain `victorilodiuba.me` was purchased on Namecheap less than 60 days before this project, so i couldn't transfer the domain to AWS, which would have helped me add a Route53 resource to this infrastrcture to automate creating the DNS record.
+
+I had to take the IP address of my Load Balancer to Namecheap and create the DNS record myself.
